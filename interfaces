@@ -1,0 +1,84 @@
+//CustomerManger
+public class CustomerManger {
+
+ICustomerDaI customerDaI;	
+	
+public CustomerManger(ICustomerDaI customerDaI) {
+	this.customerDaI = customerDaI;
+}
+
+public void add() {
+	
+	customerDaI.add();
+}
+
+	
+}
+
+
+
+//interface ICustomerDaI 
+public interface ICustomerDaI {
+	void add(); 
+
+}
+
+//interface IRepository
+public interface IRepository {
+	
+}
+
+
+//Main
+public class Main {
+
+	public static void main(String[] args) {
+		
+//		ICustomerDaI customerDaI = new MySqlCustomerDaI();
+//		customerDaI.add();
+		
+		CustomerManger customerManger = new CustomerManger(new SqlCustomerDaI());
+	    customerManger.add();
+		 
+	}
+
+}
+
+
+//MySqlCustomerDaI
+public class MySqlCustomerDaI implements ICustomerDaI , IRepository {
+
+	@Override
+	public void add() {
+		
+	System.out.println("Mysql Eklendi ! ");	
+	}
+
+
+
+}
+
+//OracleCustomerDaI
+public class OracleCustomerDaI implements ICustomerDaI {
+
+	@Override
+	public void add() {
+
+		System.out.println("Oracle Eklendi ! ");	
+	}
+
+}
+
+//SqlCustomerDaI
+public class SqlCustomerDaI implements ICustomerDaI {
+
+	@Override
+	public void add() {
+		System.out.println("Sql Eklendi ! ");	
+		
+	}
+
+}
+
+
+
