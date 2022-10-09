@@ -1,0 +1,52 @@
+//BaseKrediManger
+public class BaseKrediManger {
+	
+	public double hesapla(double tutar) {
+	
+		return tutar*1.18;
+		
+	}
+
+}
+
+//Main
+public class Main {
+
+	public static void main(String[] args) {
+
+//		OgretmenKrediManager ogretmenKrediManager = new OgretmenKrediManager();
+//		System.out.println(ogretmenKrediManager.hesapla(30.28));
+		
+		BaseKrediManger[] baseKrediMangers = new BaseKrediManger[] {new OgretmenKrediManager(), new TarimKrediManager()  , new OgrenciKrediManager() };
+		
+		for (BaseKrediManger baseKrediManger : baseKrediMangers) {
+			System.out.println(baseKrediManger.hesapla(1000));
+		}
+		
+		
+
+	}
+
+}
+
+
+//OgrenciKrediManager
+public class OgrenciKrediManager extends BaseKrediManger {
+
+	public double hesapla(double tutar) {
+		
+		return tutar*1.10;
+		
+	}
+}
+
+
+//OgretmenKrediManager
+public class OgretmenKrediManager extends BaseKrediManger {
+
+}
+
+//TarimKrediManager
+public class TarimKrediManager extends BaseKrediManger {
+
+}
