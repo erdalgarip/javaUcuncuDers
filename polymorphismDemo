@@ -1,0 +1,96 @@
+//BaseLogger
+
+public class BaseLogger {
+
+	public void log(String messages) {
+		
+		System.out.println("Default Logger "+messages);
+	}
+	
+}
+
+
+
+//BaseLogger
+public class ConsoleLogger extends BaseLogger {
+	public void log(String messages) {
+		
+		System.out.println("Console Logger "+messages);
+	}
+}
+
+
+
+//CustomerManager
+public class CustomerManager {
+
+	private BaseLogger baseLogger;
+
+	public CustomerManager(BaseLogger baseLogger) {
+
+		this.baseLogger = baseLogger;
+	}
+
+	public void add() {
+		System.out.println("Müşteri Eklendi");
+
+		this.baseLogger.log("Log Eklendi");
+	}
+
+}
+
+
+//DatebaseLogger
+public class DatebaseLogger extends BaseLogger {
+
+	public void log(String messages) {
+
+		System.out.println("Datebase Logger " + messages);
+	}
+}
+
+
+//EmailLogger
+public class EmailLogger extends BaseLogger {
+	public void log(String messages) {
+
+		System.out.println("Email Logger " + messages);
+	}
+}
+
+
+
+//FileLogger
+public class FileLogger extends BaseLogger {
+	public void log(String messages) {
+		
+		System.out.println("File Logger "+messages);
+	}
+}
+
+
+//Main
+public class Main {
+
+	public static void main(String[] args) {
+
+		// BaseLogger[] baseLoggers = new BaseLogger[] {new FileLogger(), new
+		// DatebaseLogger() , new EmailLogger(), new ConsoleLogger()};
+
+		// for (BaseLogger baseLogger : baseLoggers) {
+
+		// baseLogger.log("Log Mesajı");
+		// }
+
+		CustomerManager customerManager = new CustomerManager(new FileLogger());
+
+		customerManager.add();
+
+	}
+
+}
+
+
+
+
+
