@@ -1,0 +1,65 @@
+//CustomerManager
+
+public class CustomerManager {
+	
+	DatabaseManager databaseManager;
+	
+	
+	public void getCustomer() {
+		databaseManager.getData();
+		
+	}
+
+	
+}
+
+
+//DatabaseManager
+public abstract class DatabaseManager {
+
+	public  void getData () {
+		
+	}
+	
+}
+
+//Main
+public class Main {
+
+	public static void main(String[] args) {
+		
+	CustomerManager customerManager = new CustomerManager();
+	
+	customerManager.databaseManager = new MysqlDatabaseManager();
+	
+	customerManager.getCustomer();
+		
+
+	}
+
+}
+
+
+//MysqlDatabaseManager
+public class MysqlDatabaseManager extends DatabaseManager {
+	
+	public void getData () {
+		System.out.println("Mysql Veri Getirildi ! ");
+	}
+
+}
+
+//OracleDatabaseManager
+public class OracleDatabaseManager extends DatabaseManager {
+	public void getData () {
+		System.out.println("Oracel Veri Getirildi ! ");
+	}
+}
+
+//SqlDatabseManager
+public  class SqlDatabseManager extends DatabaseManager  {
+
+	public void getData () {
+		System.out.println("Sql Veri Getirildi ! ");
+	}
+}
