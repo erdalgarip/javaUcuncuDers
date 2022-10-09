@@ -1,0 +1,226 @@
+//Bussines Package ProductManager
+package oopWithNLayeredApp.bussiness;
+
+import java.util.List;
+
+import oopWithNLayeredApp.core.logging.Logger;
+import oopWithNLayeredApp.dataAccess.ProductDao;
+import oopWithNLayeredApp.entities.Product;
+
+public class ProductManager {
+
+	private ProductDao productDao;
+
+	private Logger[] loggers;
+
+	public ProductManager(ProductDao productDao, Logger[] loggers) {
+		super();
+		this.productDao = productDao;
+		this.loggers = loggers;
+	}
+
+	public void add(Product product) throws Exception {
+
+		if (product.getUnitPrice() < 10) {
+
+			throw new Exception("Girilien değer 10 dan küçük olamaz !");
+
+		}
+
+		// JdbcProductDao jdbcProductDao = new JdbcProductDao();
+
+		// jdbcProductDao.add(product);
+
+		// ProductDao productDao = new JdbcProductDao();
+
+		productDao.add(product);
+
+		for (Logger logger : loggers) {
+			logger.log(product.getId() + product.getName() + product.getUnitPrice());
+		}
+
+	}
+
+}
+
+
+//Core Logging Package Database
+package oopWithNLayeredApp.core.logging;
+
+public class Datebase implements Logger {
+
+	public void log(String data) {
+		System.out.println("Database Loglandı !"+data);
+		
+	}
+	
+}
+
+
+//Core Logging Package MailLogger
+package oopWithNLayeredApp.core.logging;
+
+public class MailLogger implements Logger  {
+
+	public void log(String data) {
+		System.out.println("Maile Loglandı !"+data);
+		
+	}
+	
+}
+
+
+
+//Core Logging Package FileLogger
+package oopWithNLayeredApp.core.logging;
+
+public class FileLogger implements Logger {
+ 
+	public void log(String data) {
+		System.out.println("Dosyaya Loglandı !"+data);
+		
+	}
+}
+
+//Core interface Logger
+package oopWithNLayeredApp.core.logging;
+
+public interface Logger {
+ void log(String data);
+}
+
+
+
+//Core DateAccess HibernateProductDao
+package oopWithNLayeredApp.dataAccess;
+
+import oopWithNLayeredApp.entities.Product;
+
+public class HibernateProductDao implements ProductDao {
+
+public void add(Product product) {
+	System.out.println("Hibernate Veritabanına Eklendi");
+	
+}	
+	
+}
+
+
+//Core DateAccess JdbcProductDao
+package oopWithNLayeredApp.dataAccess;
+
+import oopWithNLayeredApp.entities.Product;
+
+public class JdbcProductDao implements ProductDao {
+
+	public void add(Product product) {
+		
+		System.out.println("JDBC Veritabanına Eklendi");
+		
+	}
+	
+}
+
+
+//Core DateAccess interface ProductDao
+package oopWithNLayeredApp.dataAccess;
+
+import oopWithNLayeredApp.entities.Product;
+
+public interface ProductDao {
+	
+	void add(Product product);
+
+}
+
+
+//Entities Product Class
+
+package oopWithNLayeredApp.entities;
+
+public class Product {
+
+	private int id;
+	private String name;
+	private double unitPrice;
+
+	public Product() {
+		super();
+
+	}
+
+	public Product(int id, String name, double unitPrice) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.unitPrice = unitPrice;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public double getUnitPrice() {
+		return unitPrice;
+	}
+
+	public void setUnitPrice(double unitPrice) {
+		this.unitPrice = unitPrice;
+	}
+
+}
+
+
+//Main Class
+package oopWithNLayeredApp;
+
+import oopWithNLayeredApp.bussiness.ProductManager;
+import oopWithNLayeredApp.core.logging.Datebase;
+import oopWithNLayeredApp.core.logging.FileLogger;
+import oopWithNLayeredApp.core.logging.Logger;
+import oopWithNLayeredApp.core.logging.MailLogger;
+import oopWithNLayeredApp.dataAccess.HibernateProductDao;
+import oopWithNLayeredApp.dataAccess.JdbcProductDao;
+import oopWithNLayeredApp.entities.Product;
+
+public class Main {
+
+	public static void main(String[] args) throws Exception {
+
+		
+		Product product1 = new Product(2,"Hp Leptop",15000);
+        Logger[] loggers = { new Datebase() , new FileLogger() , new MailLogger()};
+		
+		 
+		ProductManager productManager = new ProductManager(new HibernateProductDao(), loggers);
+		
+		productManager.add(product1);
+		
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
