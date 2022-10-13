@@ -1,0 +1,141 @@
+--
+-- Veritabanı: `banka`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `adresler`
+--
+
+CREATE TABLE `adresler` (
+  `Id` int(11) NOT NULL,
+  `MusteriId` int(11) NOT NULL,
+  `AdresDetay` varchar(100) COLLATE utf8_turkish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `bilancolar`
+--
+
+CREATE TABLE `bilancolar` (
+  `Id` int(11) NOT NULL,
+  `MusteriId` int(11) NOT NULL,
+  `Tarih` int(11) NOT NULL,
+  `Tutar` double(16,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `gercekmusteriler`
+--
+
+CREATE TABLE `gercekmusteriler` (
+  `MusterId` int(11) NOT NULL,
+  `Ad` varchar(25) COLLATE utf8_turkish_ci NOT NULL,
+  `Soyad` varchar(25) COLLATE utf8_turkish_ci NOT NULL,
+  `TC` varchar(12) COLLATE utf8_turkish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `kanallar`
+--
+
+CREATE TABLE `kanallar` (
+  `Id` int(11) NOT NULL,
+  `Ad` varchar(50) COLLATE utf8_turkish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `musteriler`
+--
+
+CREATE TABLE `musteriler` (
+  `Id` int(11) NOT NULL,
+  `MusteriNo` int(11) NOT NULL,
+  `KanalId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `sendikalar`
+--
+
+CREATE TABLE `sendikalar` (
+  `MusterId` int(11) NOT NULL,
+  `Ad` varchar(100) COLLATE utf8_turkish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `ticarifaaliyetler`
+--
+
+CREATE TABLE `ticarifaaliyetler` (
+  `Id` int(11) NOT NULL,
+  `GercekMusteriId` int(11) NOT NULL,
+  `BaslangicTarihi` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `tuzelmusteriler`
+--
+
+CREATE TABLE `tuzelmusteriler` (
+  `MusterId` int(11) NOT NULL,
+  `Unvan` varchar(25) COLLATE utf8_turkish_ci NOT NULL,
+  `VergiNo` varchar(15) COLLATE utf8_turkish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
+
+--
+-- Dökümü yapılmış tablolar için indeksler
+--
+
+--
+-- Tablo için indeksler `adresler`
+--
+ALTER TABLE `adresler`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- Tablo için indeksler `gercekmusteriler`
+--
+ALTER TABLE `gercekmusteriler`
+  ADD PRIMARY KEY (`MusterId`);
+
+--
+-- Tablo için indeksler `kanallar`
+--
+ALTER TABLE `kanallar`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- Tablo için indeksler `musteriler`
+--
+ALTER TABLE `musteriler`
+  ADD PRIMARY KEY (`Id`),
+  ADD UNIQUE KEY `MusteriNo` (`MusteriNo`);
+
+--
+-- Tablo için indeksler `ticarifaaliyetler`
+--
+ALTER TABLE `ticarifaaliyetler`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- Tablo için indeksler `tuzelmusteriler`
+--
+ALTER TABLE `tuzelmusteriler`
+  ADD PRIMARY KEY (`MusterId`);
+COMMIT;
