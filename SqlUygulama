@@ -1,0 +1,51 @@
+SELECT  *   FROM Customers;
+
+SELECT  CustomerID UyeNo  , CustomerName UyeAdi , Address Adres , City Şehir    FROM Customers
+
+SELECT  * FROM Customers WHERE CustomerID<20
+
+SELECT  * FROM Customers WHERE CustomerID>5 and CustomerID<15
+
+SELECT  * FROM Customers   ORDER BY CustomerID DESC
+
+SELECT * FROM Products where price>20 and price<50
+
+SELECT * FROM Products ORDER BY price ASC
+
+SELECT count(*) FROM Products
+
+SELECT *  FROM Products GROUP BY CategoryID
+
+SELECT count(*) as sayisi ,  CategoryID  FROM Products GROUP BY CategoryID 
+
+SELECT count(*) as sayisi ,  CategoryID , (SELECT CategoryName FROM Categories where Products.CategoryID=Categories.CategoryID) as KategoriAdi  FROM Products GROUP BY CategoryID 
+
+SELECT count(*) as sayisi ,  CategoryID  FROM Products where Price<50 GROUP BY CategoryID having count(*)<10
+
+SELECT Products.ProductID,  Products.ProductName ,   Products.Price, Categories.CategoryName
+FROM Products 
+inner join Categories 
+on Categories.CategoryID=Products.CategoryID  where  Products.Price<15
+SELECT Products.ProductID,  Products.ProductName ,   Products.Price, Categories.CategoryName
+FROM Products 
+left join Categories 
+on Categories.CategoryID=Products.CategoryID  
+
+SELECT Customers.CustomerID,  Customers.CustomerName ,    Orders.OrderDate
+FROM Customers 
+left join Orders 
+on Customers.CustomerID=Orders.CustomerID  
+
+SELECT Customers.CustomerID,  Customers.CustomerName ,    Orders.OrderDate
+FROM Customers 
+inner join Orders 
+on Customers.CustomerID=Orders.CustomerID  
+
+SELECT Customers.CustomerID,  Customers.CustomerName ,    Orders.OrderDate
+FROM Customers 
+left join Orders 
+on Customers.CustomerID=Orders.CustomerID   is null
+
+
+  
+
